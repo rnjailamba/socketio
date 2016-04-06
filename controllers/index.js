@@ -2,11 +2,17 @@ var modules = require('./setup/all_modules');//require all modules that are shar
 var router = modules.express.Router();
 var config = require('../config/config.js');//require all modules that are shared by all controllers
 var appConfig = require('../config/appConfig'); // configure service api urls in dev/prod/beta
-var mappings = appConfig();
 
 var redisClient;
 module.exports.setRedisClient = function(inClient) { redisClient = inClient; };
 modules.winston.log('debug', 'Hello again distributed log files!');
+
+
+var io;
+module.exports.setIOobject = function(inIO) { io = inIO; };
+
+
+var socketAPI = require('../helpers/Socket/api.js'); // get the socket apis from the helpers folder
 
 
 // PING
@@ -22,6 +28,14 @@ router.get('/ping', function(req, res){
            console.log("am getting",reply);
 
         });
+    });
+
+    var sayHelloInEnglish = socketAPI.functions.sayHelloInEnglish;
+    console.log(sayHelloInEnglish());
+
+    io.on("connection", function(){
+        console.log('a user connected');
+
     });
     res.status(200).send("Ping");
 });
