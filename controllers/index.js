@@ -6,18 +6,25 @@ var mappings = appConfig();
 
 var redisClient;
 module.exports.setRedisClient = function(inClient) { redisClient = inClient; };
-
-
-
 modules.winston.log('debug', 'Hello again distributed log files!');
 
 
 // PING
 // ============================================== 
 router.get('/ping', function(req, res){
+     redisClient.select(1, function(err,res){
+
+        redisClient.set("abc", "xyz", function(err, reply) {
+           console.log("have set",reply);
+        });
+
+        redisClient.get("abc", function(err, reply) {
+           console.log("am getting",reply);
+
+        });
+    });
     res.status(200).send("Ping");
 });
-
 
 
 var justPrintSomething = function(){
