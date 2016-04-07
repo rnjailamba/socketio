@@ -33,11 +33,22 @@ router.get('/ping', function(req, res){
     var sayHelloInEnglish = socketAPI.functions.sayHelloInEnglish;
     console.log(sayHelloInEnglish());
 
-    io.on("connection", function(){
-        console.log('a user connected');
+    // the important parts of echo server
+    io.on("connection", function (socket) {
+            console.log('a user connectedddd');
+        socket.on("echo", function (msg, callback) {
 
+            callback = callback || function () {};
+
+            socket.emit("echo", msg);
+
+            callback(null, "Done.");
+        });
     });
-    res.status(200).send("Ping");
+
+//    res.status(200).send("Ping");
+    res.render('index/ping', { title: 'Express' });
+
 });
 
 

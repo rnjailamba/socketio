@@ -6,7 +6,12 @@ var app = modules.express();
 // ==============================================
 app.set('views', modules.path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');// set up ejs for templating
+app.use('/jquery', modules.express.static(__dirname + '/node_modules/jquery/dist/'));
+app.use('/bootstrap', modules.express.static(__dirname + '/node_modules/bootstrap/dist/'));
 app.use('/node_modules', modules.express.static(__dirname + '/node_modules/'));
+app.use('/node_modules', modules.express.static(__dirname + '/node_modules/'));
+app.use('/css', modules.express.static(__dirname + '/public/stylesheets/'));
+app.use('/js', modules.express.static(__dirname + '/public/javascripts/'));
 app.use(modules.flash()); // use connect-flash for flash messages stored in session
 app.set('superSecret', modules.config.secret); // secret variable
 app.use(modules.logger('dev')); // log every request to the console
@@ -33,7 +38,6 @@ app.use(function(req, res, next) {
 var exportingApp = require("./controllers/setup/export_app");
 exportingApp.exportApp(app);
 var initHelper = require("./helpers/initializeHelpers.js");//initialize database connections , twilio etc.
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
