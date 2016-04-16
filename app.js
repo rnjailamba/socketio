@@ -70,6 +70,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-console.log("hellonew");
 
 module.exports = app;

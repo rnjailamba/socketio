@@ -2,7 +2,7 @@ var exportedApp = require('../exporters/export_app');
 var http = require("http");
 var server = http.createServer(exportedApp.app);
 var io = require("socket.io")(server);
-server.listen(2000);
+server.listen(8090);
 
 console.log("socket io client created");
 // io.on('connection', function(socket){

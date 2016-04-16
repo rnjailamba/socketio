@@ -17,20 +17,10 @@ modules.winston.log('debug', 'Hello again distributed log files!');
 // PING
 // ============================================== 
 router.get('/ping', function(req, res){
-   
-
-    var sayHelloInEnglish = socketAPI.functions.sayHelloInEnglish;
-    console.log(sayHelloInEnglish());
-
-
-//    res.status(200).send("Ping");
-    res.render('index/ping', { title: 'Express' });
+  
+    res.render('chat', { title: 'Express' });
 
 });
 
-
-var justPrintSomething = function(){
-    console.log("print something");
-}
 
 module.exports.router = router;

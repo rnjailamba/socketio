@@ -1,0 +1,171 @@
+<!doctype html>
+<html>
+  <head>
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <title>Socket.IO chat</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eee; }
+    </style>
+  </head>
+  <body>
+    <ol id="messages"></ol>
+    <form action="">
+      <input id="m" autocomplete="off" /><button>Send</button>
+    </form>
+    <script>
+      var socket = io.connect('http://localhost:8090')
+      //var his={"start":"0","limit":"10","receiver":receiver,"sender":sender}
+      //socket.emit('fetch_history',his);
+
+      function getTime(timestamp){
+         var d = new Date(timestamp);
+         return d.toLocaleString();
+       }
+       function getMessage(){
+         var sender="sender"
+         var receiver="receiver"
+          var message = {
+            chat_message:$('#m').val(),
+            "sender":sender,
+            "receiver":receiver,
+            "sendermessageId":sender+receiver
+          }    
+          return message;    
+       }
+
+       $('form').submit(function(){
+         socket.emit('chat message', getMessage());
+         $('#m').val('');
+         return false;
+       });
+
+      /*socket.on(sender+':History', function(msg){
+        for (var i = 0; i < msg.length; i++) { 
+          tempMessage=JSON.parse(msg[i]);
+          if(tempMessage.sender==sender){
+            tempMessage.events=tempMessage.state;
+          $('#messages').append(getOUTListItem(tempMessage));
+          }
+          else{
+             $('#messages').append(getINListItem(tempMessage));
+             socket.emit('message_delivered',tempMessage);
+          }
+        }
+      });
+      //var his={"start":"0","limit":"10","receiver":receiver,"sender":sender}
+    //socket.emit('fetch_history',his);
+var room ;
+      $('form').submit(function(){
+var message = {
+chat_message:$('#m').val(),
+"sender":sender,
+"receiver":receiver,
+"sendermessageId":((S4() + S4() + "-" + S4() + "-4" + S4().substr(0,3) + "-" + S4() + "-" + S4() + S4() + S4()).toLowerCase())
+}
+        //add this message in local list
+        //subrcribe for this message response
+        socket.on(message.sender+message.receiver+message.sendermessageId, function(msg){
+          $('#messages').append(getOUTListItem(msg));
+          room=msg.room;
+          //change status and message id of message locally
+          //unsubscribe 
+          //subrcribe to new messageid from server
+        });
+        socket.emit('chat message', message);
+        $('#m').val('');
+        return false;
+      });
+      socket.on(sender, function(msg){
+        if(room==msg.room){
+        if(msg.type=='NEW'){
+       //document.getElementById(msg.messageid)
+       //msg.state='RECEIVED';
+      $('#messages').append(getINListItem(msg));
+        socket.emit('message_delivered',msg);
+        }
+        else if(msg.type=='ACK'){
+          if(msg.events=='DELIVERED'){
+          removeListItem(msg)
+          $('#messages').append(getOUTListItem(msg));
+          socket.emit('message_delivered_ack',msg);
+        }
+        else if(msg.events=='READ'){
+          replaceListItem(msg);
+          socket.emit('message_read_ack',msg);
+          
+        }
+      }
+        }      
+});
+function removeListItem(msg){
+  */
+        /*var listItem = document.getElementById( msg.messageid );
+        listItem.
+          $('#messages').remove($( "li" ).index(listItem));*/
+        /*  $('#'+msg.messageId).remove();
+}
+      function getINListItem(msg){
+        var li = document.createElement("li");
+        li.setAttribute("id", msg.messageId);
+        li.appendChild(document.createTextNode(msg.chat_message+ "           " + msg.sender + " " + getTime(msg.timestamp)));     
+        return li;
+      }
+      function getOUTListItem(msg){
+        var li = document.createElement("li");
+        li.setAttribute("id", msg.messageId);
+        li.appendChild(document.createTextNode(msg.chat_message+ "           " + msg.sender + "  " + msg.events + " " + getTime(msg.timestamp)));
+        return li;
+      }
+      function replaceListItem(msg){
+          var listItem = document.getElementById( msg.messageId );
+          listItem.innerHTML=msg.chat_message+ "           " + msg.sender + "  " + msg.events + " " + getTime(msg.timestamp);
+          
+      }
+function getTime(timestamp){
+  var d = new Date(timestamp);
+  return d.toLocaleString();
+}
+//ways to raise READ event
+      // localStorage detection
+function supportsLocalStorage() {
+  return typeof(Storage)!== 'undefined';
+}
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + "; " + expires;
+}
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+    }
+    return "";
+}
+function checkCookie() {
+    var username=getCookie("username");
+    if (username!="") {
+        alert("Welcome again " + username);
+    }else{
+        username = prompt("Please enter your name:", "");
+        if (username != "" && username != null) {
+            setCookie("username", username, 365);
+        }
+    }
+}
+*/
+    </script>
+  </body>
+</html>
