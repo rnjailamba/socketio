@@ -15,7 +15,7 @@ app.use('/js', modules.express.static(__dirname + '/public/javascripts/'));
 app.use(modules.flash()); // use connect-flash for flash messages stored in session
 app.set('superSecret', modules.config.secret); // secret variable
 app.use(modules.logger('dev')); // log every request to the console
-app.set('trust proxy', 1) // trust first proxy
+
 
 
 // USE BODY PARSER SO WE CAN GET INFO FROM POST AND/OR URL PARAMETERS

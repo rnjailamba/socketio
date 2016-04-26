@@ -6,7 +6,7 @@ console.log("socket io client created");
 // io.on('connection', function(socket){
 //   console.log('a user connected original');
 // });
-server.listen(3000);
+server.listen(3001);
 var export_socketIO = require('../exporters/export_socketIO.js');
 export_socketIO.setSocketIO(io);
 

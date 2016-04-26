@@ -7,15 +7,20 @@ var redisClient = require('../helpers/exporters/export_redisClient').redisClient
 modules.winston.log('debug', 'Hello again distributed log files!');
 
 
-// io.on('connection', function(socket){
-//   console.log('a user connected original');
-// });
-
-// get the socket apis from the helpers folder
+process.on('uncaughtException', function(err) {
+    log.error((new Date).toUTCString() + ' uncaughtException:', err.message)
+    log.error(err.stack)
+    process.exit(1)
+});
 
 
 // PING
 // ============================================== 
+router.get('/axy', function(req, res){
+  
+    res.render('chat1', { title: 'Express' });
+
+});
 router.get('/ping', function(req, res){
   
     res.render('chat', { title: 'Express' });
